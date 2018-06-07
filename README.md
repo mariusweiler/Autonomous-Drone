@@ -11,3 +11,6 @@ There is 2 devices managing the flight :
 
 ### Why GitHub
 Throughout the project we have stumbled upon documentation from various websites, which helped us going forward. Anyway, we did not found any project to fly a DJI drone with a Raspberry directly. With this GitHub documentation, we want to give back information, and maybe help other projects with our humble contribution.
+
+## More information :
+All usefull information are here : [Autonomous Shooting Drone WIKI](https://github.com/mariusweiler/Autonomous-Shooting-Drone/wiki)
