@@ -21,6 +21,13 @@ Throughout the project we have stumbled upon documentation from various websites
 
 ## Documentation
 ### Code architecture
+- Flight Controller
+- Flight Commands
+- Captor Management
+- Pedestrian Detection
+- LCD Controll
+- Buzzer
+
 
 ### The flightController script
 
