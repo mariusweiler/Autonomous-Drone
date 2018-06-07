@@ -34,3 +34,4 @@ The Autonomous Shooting Drone purpose is to controll a DJI phantom2 drone with a
 ### Wheight problems
 
 ## Other features
+### Connection to GitHub
