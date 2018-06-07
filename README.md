@@ -21,12 +21,25 @@ Throughout the project we have stumbled upon documentation from various websites
 
 ## Documentation
 ### Code architecture
+Here is the files that you'll find in the project folder :
+
 - Flight Controller
+  Main Script, manage the whole flight and actions, uses others classes to perform specific actions
+
 - Flight Commands
+  Class containing all the flights commands, to move the drone. It's a class so we can use class variables in the Script
+
 - Captor Management
+  Class managing all the sensors used during the flight. It's a class so we can use class variables in the Script
+
 - Pedestrian Detection
+  Script performing the person detection and returning the x and y (horizontal sides) coordinates of the rectangle containing the person
+
 - LCD Controll
+  Script Controlling the LCD to display live informations
+
 - Buzzer
+  Script Controlling the buzzer to emit music during the flight
 
 
 ### The flightController script
