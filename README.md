@@ -18,6 +18,8 @@ Throughout the project we have stumbled upon documentation from various websites
 ### Wiring the sensors
 
 ### Raspberry Configuration
+#### Connect Raspberry to a WIFI connection
+In this project, we used a Smartphone sharing WIFI connection to connect to the raspberries.
 
 ## Runing the software
 
