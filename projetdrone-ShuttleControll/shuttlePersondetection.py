@@ -25,5 +25,4 @@ def persondetection(image):
         # draw the final bounding boxes
         for (xA, yA, xB, yB) in pick:
                 cv2.rectangle(image, (xA, yA), (xB, yB), (0, 255, 0), 2)
-        print('okokok')
         return pick

@@ -1,30 +1,34 @@
+# -*- coding: utf-8 -*-
 import socket
 
 class socketFlightServer():
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind(('172.20.10.6', 9050))
-    server_socket.listen(1)  # allow only 1 connection
-    connection, client_address = server_socket.accept()
+    def __init__(self):
+        self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.server_socket.bind(('172.20.10.7', 9052))
+        self.server_socket.listen(1)  # allow only 1 connection
+        self.connection, client_address = self.server_socket.accept()
 
     def waitHeightOk(self):
-        heightOk=0;
-  	while not heightOk:
-   	    data = connection.recv(1024)
-   	    if data:
-                if not isinstance(data, list) and data > 130:
-                    heightOk=1;
+        self.heightOk=0;
+  	while not self.heightOk:
+   	    data = self.connection.recv(32)
+   	    data = int(data.lstrip(' '));
+            print('Hauteur reçue par mission controll :')
+            print(data)
+            if data < 85:
+                self.heightOk=1;
 
     def getPersonPosition(self):
-   	positionReceived=0;
-   	data=0;
-  	while not positionReceived:
-   	    data = connection.recv(1024)
-   	    if data:
-                if type(data) != 'int':
-                    positionReceived=1;
-   	return data
+   	self.positionReceived=0;
+  	while not self.positionReceived:
+   	    data1 = self.connection.recv(32)
+   	    data1=int(data1.lstrip(' '));
+   	    data2 = self.connection.recv(32)
+   	    data2=int(data2.lstrip(' '));
+            self.positionReceived=1;
+   	return data1,data2;
 
     def closeSocket():
-        server_socket.close()
-   	connection.close()
+        self.server_socket.close()
+   	self.connection.close()
 

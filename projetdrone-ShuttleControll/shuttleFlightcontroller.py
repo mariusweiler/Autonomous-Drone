@@ -4,13 +4,10 @@
 # et de renvoyer ses coordonnées
 from shuttlePersondetection import persondetection
 # import des fonctions pour la gestion des capteurs
-from shuttleCaptormanagement import *
+from shuttleCaptorManagement import *
 
-from socketSendMissionControllData import *
-# import de la fonction pour faire gerer le buzzer
-from buzzer import *
-# import des fonctions de controle de vol pour le drone
-from flightcommand import *
+from shuttleSendMissionControllData import *
+
 # import des fonctions de temps pour faire des pauses
 import time
 # import des fonctions d'open cv
@@ -18,16 +15,22 @@ import cv2
 
 from shuttleCommManagement import *
 
-import Queue
+from multiprocessing import Queue
 
-
-from flightserver import *
+from picamera.array import PiRGBArray
+from picamera import PiCamera
 
 # initialisations en début de script
-scm=shuttleCommManagement();
+
+
+
 laqueue=Queue();
 ssmcd=socketSendMissionControllData(laqueue);
-scm.start();
+time.sleep(3);
+scm=socketCommManagement();
+
+
+
 stop = 0;
 
 # initialisation de la camera
@@ -36,12 +39,21 @@ rawCapture = PiRGBArray(camera)
 
 while not stop:
     wts=scm.whatToSend();
+##  on nettoie ce que lon a recu
+    wts=wts.lstrip(' ');
+    wts=int(wts)
     if wts == 0:
         ssmcd.sendHeight();
     elif wts==1:
+        print('okokok');
         camera.capture(rawCapture, format="bgr")
         image = rawCapture.array
-        ssmcd.sendXY(image);
+        tab=persondetection(image);
+        print('tab');
+        print(tab);
+        ssmcd.sendXY(tab);
+        rawCapture.truncate()
+        rawCapture.seek(0)
     elif wts==2:
         self.stop=1;
 

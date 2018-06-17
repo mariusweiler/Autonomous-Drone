@@ -3,30 +3,33 @@ import time
 
 import grovepi
 import grovepi3
+from operator import truediv
 
 class flightcommand:
-    valeurmillieu=170;
-    augmentationmax = 42;
-    diminutionmax = 42;
+    valeurmillieu=164;
+    augmentationmax = 40;
+    diminutionmax = 47;
     hauteur=3;
     avancement=3;
     rotation=6;
     slide=5;    
 
     def allumerEteindreDrone(self):
-        self.avancementDrone(0,10);
-        self.hauteurDrone(0,10);
-        self.slideDrone(0,10);
-        self.rotationDrone(1,10);
+        self.avancementDrone(0,20);
+        self.hauteurDrone(0,20);
+        self.slideDrone(0,20);
+        self.rotationDrone(1,20);
 
     def rotationDrone(self,gauchedroite, force):
     ## Valeur pour tourner à gauche : < x
     ## Valeur pour tourner à droite : > x
     ## Valeur pour stabiliser : x
         if not gauchedroite:
-            grovepi.analogWrite(self.rotation,self.valeurmillieu-(self.diminutionmax*(force/10)));
+            print(int(self.valeurmillieu-(self.diminutionmax*(truediv(force,20)))))
+            grovepi.analogWrite(self.rotation,int(self.valeurmillieu-(self.diminutionmax*(truediv(force,20)))))
         else:
-            grovepi.analogWrite(self.rotation,self.valeurmillieu+(self.augmentationmax*(force/10)))
+            print(int(self.valeurmillieu+(self.augmentationmax*(truediv(force,20)))))
+            grovepi.analogWrite(self.rotation,int(self.valeurmillieu+(self.augmentationmax*(truediv(force,20)))))
 
     def stabiliserRotation(self):
         grovepi.analogWrite(self.rotation,self.valeurmillieu)
@@ -36,9 +39,11 @@ class flightcommand:
     ## Valeur pour tourner à droite : > x
     ## Valeur pour stabiliser : x
         if gauchedroite:
-            grovepi.analogWrite(self.slide,self.valeurmillieu-(self.diminutionmax*(force/10)));
+            print(int(self.valeurmillieu-(self.diminutionmax*(truediv(force,20)))))
+            grovepi.analogWrite(self.slide,int(self.valeurmillieu-(self.diminutionmax*(truediv(force,20)))))
         else:
-            grovepi.analogWrite(self.slide,self.valeurmillieu+(self.augmentationmax*(force/10)))
+            print(int(self.valeurmillieu+(self.augmentationmax*(truediv(force,20)))))
+            grovepi.analogWrite(self.slide,int(self.valeurmillieu+(self.augmentationmax*(truediv(force,20)))))
 
     def stabiliserSlide(self):
         grovepi.analogWrite(self.slide,self.valeurmillieu)
@@ -48,10 +53,11 @@ class flightcommand:
     ## Valeur pour tourner à droite : > x
     ## Valeur pour stabiliser : x
         if bashaut:
-            print(self.hauteur,self.valeurmillieu-(self.diminutionmax*(force/10)))
-            grovepi.analogWrite(self.hauteur,self.valeurmillieu-(self.diminutionmax*(force/10)));
+            print(int(self.valeurmillieu-(self.diminutionmax*(truediv(force,20)))))
+            grovepi.analogWrite(self.hauteur,int(self.valeurmillieu-(self.diminutionmax*(truediv(force,20)))));
         else:
-            grovepi.analogWrite(self.hauteur,self.valeurmillieu+(self.augmentationmax*(force/10)))
+            print(int(self.valeurmillieu+(self.augmentationmax*(truediv(force,20)))))
+            grovepi.analogWrite(self.hauteur,int(self.valeurmillieu+(self.augmentationmax*(truediv(force,20)))))
 
     def stabiliserHauteur(self):
         grovepi.analogWrite(self.hauteur,self.valeurmillieu)
@@ -61,10 +67,11 @@ class flightcommand:
     ## Valeur pour tourner à droite : > x
     ## Valeur pour stabiliser : x
         if not arriereavant:
-            valeur = self.valeurmillieu-(self.diminutionmax*(force/10));
+            valeur = int(self.valeurmillieu-(self.diminutionmax*(truediv(force,20))))
             grovepi3.analogWrite(self.avancement,valeur);
         else:
-            valeur = self.valeurmillieu+(self.augmentationmax*(force/10))
+            print(int(self.valeurmillieu+(self.augmentationmax*(truediv(force,20)))))
+            valeur = int(self.valeurmillieu+(self.augmentationmax*(truediv(force,20))))
             grovepi3.analogWrite(self.avancement,valeur)
 
     def stabiliserAvancement(self):
@@ -85,5 +92,11 @@ class flightcommand:
     def stabiliser(self):
         self.stabiliserAvancement();
         self.stabiliserHauteur();
+        self.stabiliserSlide();
+        self.stabiliserRotation();
+
+    def stabiliser2(self):
+        self.stabiliserAvancement();
+        self.stabiliserHauteur2();
         self.stabiliserSlide();
         self.stabiliserRotation();

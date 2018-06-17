@@ -2,14 +2,14 @@ import socket
 
 import threading
 
-class socketSendMissionControllData():
-  client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-  client_socket.connect('weilerpi.local', 9050)
-  self.stop=0;
+class socketCommManagement():
+  def __init__(self):
+    self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    self.client_socket.connect(('weilerpi.local', 9051))
 
   def whatToSend(self):
-    data = client_socket.recv(1024)
+    data = self.client_socket.recv(32)
     return data;
 
-  def closeSocket():
-    client_socket.close()
+  def closeSocket(self):
+    self.client_socket.close()

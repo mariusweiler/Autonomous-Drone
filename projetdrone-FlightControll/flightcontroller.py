@@ -13,7 +13,7 @@ import cv2
 
 from communicationManagement import socketCommManagement
 
-import Queue
+from multiprocessing import Queue
 
 
 from flightserver import *
@@ -21,24 +21,19 @@ from flightserver import *
 ## Variable permettant de savoir si on a déjà tiré.
 tireffectuer=False;
 ## variable permettant de connaitre la position du milieu de l'image pour aligner la cible
-valeurmillieu=206;
+valeurmillieu=200;
 ## variable permettant de savoir si l'atterrissage a été effectué
 atterrissageok=0;
-## variable gardant le thread de commande de vol
+## variable gardant les commandes de vol
 fc = flightcommand();
 # initialisations en début de script
 ## initialisation du buzzer
 initialisebuzzer();
 
+lcdWrite('- Attente connexion drone -');
 sfs=socketFlightServer();
 laqueue=Queue();
-scm=socketCommManagement();
-scm.init(laqueue);
-scm.start();
-
-# initialisation de la camera
-camera = PiCamera()
-rawCapture = PiRGBArray(camera)
+scm=socketCommManagement(laqueue);
 
 # PHASE -1 - PREPARATION DU VOL
 ## on écrit à l'écran
@@ -64,47 +59,44 @@ time.sleep(1);
 # PHASE 0 - ALLUMAGE DU DRONE
 lcdWrite('Attaque en cours - Allumage');
 fc.allumerEteindreDrone();
+laqueue.put('0');
 time.sleep(5);
 
 # PHASE 1 - DECOLLAGE DE QUELQUE METRE
 lcdWrite('Attaque en cours - Decollage');
-fc.decollage(5);
-time.sleep(1.5);
-fc.stabiliser();
 
 
 while not tireffectuer:
 # PHASE 2 - STABILISATION ALTITUDE A 1M50 ET GYROSCOPE
     lcdWrite('Attaque en cours - Stabil.')
-    fc.decollage(10);
+    fc.decollage(6);
     sfs.waitHeightOk();
     fc.stabiliser();
 
 # PHASE 3 - RECHERCHE ET ALIGNEMENT DE CIBLE
-    lcdWrite('Attaque en cours - Recherche.')
-    # grab an image from the camera
-    
-    
-    # Utilisation de la fonction pour détecter une personne
-    # et stockage de son retour dans la variable rectangle
+    lcdWrite('Attaque en cours - Recherche.')    
     laqueue.put('1');
-    rect=sfs.getPersonPosition();
+    time.sleep(0.3)
+    print('entre dans getperson')
+    xA,xB=sfs.getPersonPosition();
+    print('sors de getperson')
     ## Stockage des variables du premier rectangle (le seul pris en compte)
     ## dans des variables pour une meilleure lisibilité du code
-    xA = rectangle[0];
-    xB = rectangle[1];
-    if xA and xB == 0:
+    print('xa et xb')
+    print(xA);
+    print(xB);
+    if xA == 999999999 and xB == 999999999:
         fc.rotationDrone(0,5)
-        sleep(0.7)
+        time.sleep(0.7)
         fc.stabiliser();
     else:
-        if xA < valeurmillieu and xB <= valeurmillieu:
+        if xA+25 < valeurmillieu and xB-25 <= valeurmillieu:
             fc.rotationDrone(0,5)
-            sleep(0.7)
+            time.sleep(0.7)
             fc.stabiliser();
-        elif xA >= valeurmillieu and xB >= valeurmillieu:
+        elif xA+25 >= valeurmillieu and xB-25 >= valeurmillieu:
             fc.rotationDrone(0,5)
-            sleep(0.7)
+            time.sleep(0.7)
             fc.stabiliser();
         else:
 # PHASE 5 - TIR
@@ -112,16 +104,17 @@ while not tireffectuer:
             activatePistol()
     ## Le tir a ete fait, on change la variable tireffectuer    
             tireffectuer = True
+            print('SHOOOOOOT')
     laqueue.put('0');
 
 # PHASE 6 - ATTERRISSAGE
 lcdWrite('Attaque en cours - Atterrissage.')
 while not atterrissageok:
     if getAltitude() < 40:
-        fc.atterrissage(3);
+        fc.stabiliser();
         time.sleep(0.3)
     else:
-        fc.atterrissage(6);
+        fc.stabiliser();
         time.sleep(0.5)
 
 # PHASE 7 - ARRET DU DRONE

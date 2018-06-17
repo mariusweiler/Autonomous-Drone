@@ -1,19 +1,34 @@
 import socket
 
-from shuttleCaptormanagement import *
+from shuttleCaptorManagement import *
 
-class socketCommManagement(self,laqueue):
-  def __init__(self):
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect(('weilerpi.local', 9051))
+class socketSendMissionControllData():
+  def __init__(self,laqueue):
+    self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    self.client_socket.connect(('172.20.10.7', 9052))
 
   def sendHeight(self):
-    val ='%16s' %getAltitude();
-    client_socket.sendall(val);
+    val ='%32s' %getAltitude();
+##    print('shuttle envoie val :')
+##    print(val)
+    self.client_socket.sendall(val);
 
   def sendXY(self,tab):
-    val ='%16s' %tab();
-    client_socket.sendall(val);
+    
+    if not len(tab):
+      tt=999999999;
+      val ='%32s' %tt;
+      self.client_socket.sendall(val);
+      self.client_socket.sendall(val);
+    else:
+      val ='%32s' %tab[0][0];
+      print('shuttle envoie x :')
+      print(val)
+      self.client_socket.sendall(val);
+      val ='%32s' %tab[0][2];
+      print('shuttle envoie y :')
+      print(val)
+      self.client_socket.sendall(val);
 
-  def closeSocket():
-  	client_socket.close()
+  def closeSocket(self):
+    self.client_socket.close()
