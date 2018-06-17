@@ -3,7 +3,7 @@
 All usefull information are here : [Autonomous Shooting Drone WIKI](https://github.com/mariusweiler/Autonomous-Shooting-Drone/wiki)
 
 ## Introduction
-Configure an autonomous shooting drone, using a DJI Phantom 2 drone, 2 raspberries 3 with 3 grovepis, multiple sensor from the grovepi kit, a gyroscope and a camera.
+Configure an autonomous BB gun drone, using a DJI Phantom 2 drone, 2 raspberries 3 with 3 grovepis, multiple sensor from the grovepi kit, a gyroscope and a camera.
 
 ### Goals
 The Autonomous Shooting Drone purpose is to controll a DJI phantom2 drone with 2 Raspberries Pi 3, to make it takeoff, then stabilise it at 1.5 meter, then look for a person as a target, center the target and shoot with a BB gun. The Raspi is interfaced to the drone via the remote controller, which we replace the potentiometers by the raspberry's outputs.
