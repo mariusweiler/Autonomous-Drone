@@ -20,6 +20,8 @@ We achieved the following :
 * Communicate between the 2 raspberries to share information
 * LCD, LED, Buzzer, Relay working.
 
+To see the drone in action (video) [click here](https://www.youtube.com/watch?v=76PfgulFEIY&feature=youtu.be)
+
 TO DO : 
 * Improve take off in order to be soft and slow
 * Improve stabilisation with the accelerometer to make the drone steady
