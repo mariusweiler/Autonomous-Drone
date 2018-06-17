@@ -13,7 +13,17 @@ There is 2 devices managing the flight :
 - A Raspberry with 2 grovepies, the remote board with batteries, a LCD display, a LED, a button. All of this is placed on a box, and operates as mission controll to send commands to the drone to make it fly.
 
 ### Current state
-Ttttasdf TTT  
+We achieved the following :
+* Start / Stop the drone via the raspberry
+* Fly the drone with the raspberry
+* Recognise and localise target with the camera
+* Communicate between the 2 raspberries to share information
+* LCD, LED, Buzzer, Relay working.
+
+TODO : 
+* Improve take off in order to be soft and slow
+* Improve stabilisation with the accelerometer to make the drone steady
+* Final testing with a really light BB gun
 
 ### Why GitHub
 Throughout the project we have stumbled upon documentation from various websites, which helped us going forward. Anyway, we did not found any project to fly a DJI drone with a Raspberry directly. With this GitHub documentation, we want to give back information, and maybe help other projects with our humble contribution.
