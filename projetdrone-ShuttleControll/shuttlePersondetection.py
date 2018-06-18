@@ -6,7 +6,6 @@ import numpy as np
 import argparse
 import imutils
 import cv2
-
 def persondetection(image):
          # initialize the HOG descriptor/person detector
         hog = cv2.HOGDescriptor()
