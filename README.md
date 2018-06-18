@@ -1,6 +1,6 @@
 # Autonomous Shooting Drone
 
-![Test](https://github.com/mariusweiler/Autonomous-Shooting-Drone/blob/master/images/E6F3C381-5C03-4FCC-9223-C241C6DE7CFB.jpeg?raw=true)
+![](https://github.com/mariusweiler/Autonomous-Shooting-Drone/blob/master/images/E6F3C381-5C03-4FCC-9223-C241C6DE7CFB.jpeg?raw=true)
 
 ## More information, setup and configuration :
 All usefull information are here : [Autonomous Shooting Drone WIKI](https://github.com/mariusweiler/Autonomous-Shooting-Drone/wiki)
