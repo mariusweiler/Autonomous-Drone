@@ -1,4 +1,4 @@
-# Autonomous Shooting Drone
+# Autonomous Drone
 
 ![](https://github.com/mariusweiler/Autonomous-Shooting-Drone/blob/master/images/E6F3C381-5C03-4FCC-9223-C241C6DE7CFB.jpeg?raw=true)
 
